@@ -5,7 +5,7 @@
 
 ## Example Image
 
-
+![Screenshot](https://user-images.githubusercontent.com/125640560/236143680-b5fbf52e-52a6-4203-9fc6-07135fdb140f.png)
 
 ## Link to Live Site
 

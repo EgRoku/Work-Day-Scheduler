@@ -1,12 +1,12 @@
 body {
-  font-family: 'Bruno Ace SC', cursive;
+  font-family: 'Bruno Ace SC', cursive , 'Times New Roman';
   font-size: 16px;
   line-height: 1;
   color: #666666;
 }
 
 h1 {
-  font-family: 'Bruno Ace SC', cursive;
+  font-family: 'Bruno Ace SC', cursive, 'Times New Roman';
   color: #536B78;
 }
 

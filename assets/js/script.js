@@ -16,7 +16,7 @@ var tasks = {
 };
 
 var setTasks = function() {
-    /* adds tasks to localStorage */
+    // adds tasks to localStorage
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
@@ -39,7 +39,7 @@ var getTasks = function() {
 }
 
 var createTask = function(taskText, hourDiv) {
-    /* creates a task in the row that corresponds to the desired hour */
+    // creates a task in the row that corresponds to the desired hour
 
     var taskDiv = hourDiv.find(".task");
     var taskP = $("<p>")
@@ -49,7 +49,7 @@ var createTask = function(taskText, hourDiv) {
 }
 
 var auditTasks = function() {
-    /* updates the background of each row based on time of day */
+    // updates the background of each row based on time of day
 
     var currentHour = moment().hour();
     $(".task-info").each( function() {
@@ -69,7 +69,7 @@ var auditTasks = function() {
 };
 
 var replaceTextarea = function(textareaElement) {
-    /* replaces the provided textarea element with a p element and persists the data in localStorage */
+    // replaces the provided textarea element with a p element and persists the data in localStorage
 
     // gets the necessary elements
     var taskInfo = textareaElement.closest(".task-info");

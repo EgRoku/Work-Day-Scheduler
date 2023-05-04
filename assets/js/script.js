@@ -1,8 +1,8 @@
-// set the date at the top of the page
+// sets the date at the top of the page
 var today = moment();
 $("#currentDay").text(today.format("dddd, MMMM Do"));
 
-// tasks object to store in localStorage.
+// tasks array to store in localStorage.
 var tasks = {
     "9": [],
     "10": [],
@@ -16,12 +16,12 @@ var tasks = {
 };
 
 var setTasks = function() {
-    /* add tasks to localStorage */
+    /* adds tasks to localStorage */
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 var getTasks = function() {
-    /* load the tasks from localStorage and create tasks in the right row */
+    /* load the tasks from localStorage and create tasks in the desired row */
 
     var loadedTasks = JSON.parse(localStorage.getItem("tasks"));
     if (loadedTasks) {
@@ -34,12 +34,12 @@ var getTasks = function() {
         })
     }
 
-    // make sure the past/current/future time is reflected
+    // make sure the past/current/future time is represented correctly
     auditTasks()
 }
 
 var createTask = function(taskText, hourDiv) {
-    /* create a task in the row that corresponds to the specified hour */
+    /* creates a task in the row that corresponds to the desired hour */
 
     var taskDiv = hourDiv.find(".task");
     var taskP = $("<p>")
@@ -49,13 +49,13 @@ var createTask = function(taskText, hourDiv) {
 }
 
 var auditTasks = function() {
-    /* update the background of each row based on the time of day */
+    /* updates the background of each row based on time of day */
 
     var currentHour = moment().hour();
     $(".task-info").each( function() {
         var elementHour = parseInt($(this).attr("id"));
 
-        // handle past, present, and future
+        // handles the past, present, and future backgrounds
         if ( elementHour < currentHour ) {
             $(this).removeClass(["present", "future"]).addClass("past");
         }
@@ -71,37 +71,35 @@ var auditTasks = function() {
 var replaceTextarea = function(textareaElement) {
     /* replaces the provided textarea element with a p element and persists the data in localStorage */
 
-    // get the necessary elements
+    // gets the necessary elements
     var taskInfo = textareaElement.closest(".task-info");
     var textArea = taskInfo.find("textarea");
 
-    // get the time and task
+    // gets the time and task
     var time = taskInfo.attr("id");
     var text = textArea.val().trim();
 
-    // persist the data
+    // persists the data
     tasks[time] = [text];  // setting to a one item list since there's only one task for now
     setTasks();
 
-    // replace the textarea element with a p element
+    // replaces the textarea element with a p element
     createTask(text, taskInfo);
 }
-
-/* CLICK HANDLERS */
 
 // tasks
 $(".task").click(function() {
 
-    // save the other tasks if they've already been clicked
+    // saves tasks if they've already been clicked
     $("textarea").each(function() {
         replaceTextarea($(this));
     })
 
-    // convert to a textarea element if the time hasn't passed
+    // convert to a textarea element if the time is current/in the future.
     var time = $(this).closest(".task-info").attr("id");
     if (parseInt(time) >= moment().hour()) {
 
-        // create a textInput element that includes the current task
+        // creates a textInput element that includes the current task
         var text = $(this).text();
         var textInput = $("<textarea>")
             .addClass("form-control")
@@ -118,11 +116,11 @@ $(".saveBtn").click(function() {
     replaceTextarea($(this));
 })
 
-// update task backgrounds on the hour
-timeToHour = 3600000 - today.milliseconds();  // check how much time is left until the next hour
+// updates task backgrounds on the hour
+timeToHour = 3600000 - today.milliseconds();  // this checks how much time is left until the next hour
 setTimeout(function() {
     setInterval(auditTasks, 3600000)
 }, timeToHour);
 
-// get the tasks from localStorage on load.
+// gets the tasks from localStorage on page load.
 getTasks();

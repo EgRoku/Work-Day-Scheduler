@@ -21,7 +21,7 @@ var setTasks = function() {
 }
 
 var getTasks = function() {
-    /* load the tasks from localStorage and create tasks in the desired row */
+    // loads the tasks from localStorage and create tasks in the desired row
 
     var loadedTasks = JSON.parse(localStorage.getItem("tasks"));
     if (loadedTasks) {
@@ -34,7 +34,7 @@ var getTasks = function() {
         })
     }
 
-    // make sure the past/current/future time is represented correctly
+    // makes sure the past/current/future time is represented correctly
     auditTasks()
 }
 
@@ -71,23 +71,22 @@ var auditTasks = function() {
 var replaceTextarea = function(textareaElement) {
     // replaces the provided textarea element with a p element and persists the data in localStorage
 
-    // gets the necessary elements
     var taskInfo = textareaElement.closest(".task-info");
     var textArea = taskInfo.find("textarea");
 
-    // gets the time and task
+    
     var time = taskInfo.attr("id");
     var text = textArea.val().trim();
 
     // persists the data
-    tasks[time] = [text];  // setting to a one item list since there's only one task for now
+    tasks[time] = [text];
     setTasks();
 
     // replaces the textarea element with a p element
     createTask(text, taskInfo);
 }
 
-// tasks
+// tasks section
 $(".task").click(function() {
 
     // saves tasks if they've already been clicked
@@ -95,7 +94,7 @@ $(".task").click(function() {
         replaceTextarea($(this));
     })
 
-    // convert to a textarea element if the time is current/in the future.
+    // converts to a textarea element if the time is current/in the future.
     var time = $(this).closest(".task-info").attr("id");
     if (parseInt(time) >= moment().hour()) {
 
@@ -105,7 +104,7 @@ $(".task").click(function() {
             .addClass("form-control")
             .val(text);
 
-        // add the textInput element to the parent div
+        // adds the textInput element to the parent div
         $(this).html(textInput);
         textInput.trigger("focus");
     }
